@@ -22,6 +22,11 @@
     margin-right: 2%;
 }
 .banner--content-image img {
+    transition: all ease .3s;
+    -webkit-box-shadow: 11px 8px 34px -13px rgba(0,0,0,0.68); 
+    box-shadow: 11px 8px 34px -13px rgba(0,0,0,0.68);
+}
+.banner--content-image img:hover {
     -webkit-box-shadow: 11px 8px 34px -13px rgba(255,255,255,0.68); 
     box-shadow: 11px 8px 34px -13px rgba(255,255,255,0.68);
 }
@@ -36,29 +41,43 @@
 .banner--content-texts h1 {
     color: var(--color-primary-white);
     font-weight: bold;
-    margin-bottom: -1.2%;
+    margin-bottom: -.2%;
     margin-right: 1%;
 }
 .banner--content-texts h3 {
     color: var(--color-primary-white);
     font-weight: 600;
+    margin-top: 1% !important;
 }
 .serie--overal {
     border: 2px solid var(--color-bg-percent);
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 13px;
+    margin-top: 1%;
 }
-.banner--content-texts p:first-of-type {
+.banner--content-texts span:first-of-type {
     color: var(--color-primary-gray);
 }
-.banner--content-texts p:first-of-type:hover{
+.banner--content-texts span:first-of-type:hover{
     transition: all ease .3s;
     color: var(--color-primary-white);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 1400px) {
     .banner--container {

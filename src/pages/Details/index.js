@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import Tmdb from '../../services/tmdb';
 import { useParams } from 'react-router-dom';
+import list from '../../assets/list-text.svg';
 
 // MODAL
 import Button from '@material-ui/core/Button';
@@ -98,12 +99,37 @@ function Details() {
                                     <h1>{item.name}</h1>
                                     <span>({firstDate})</span>
                                 </div>
-                                <p>{genres.join(', ')}</p>
+                                <span>{genres.join(', ')}</span>
                                 <div className="serie--overal">
                                     <b>{item.vote_average} %</b>
                                 </div>
                                 <h3>Sinopse</h3>
                                 <p>{item.overview}</p>
+                                <div className="featured--buttons">
+                                    <button onClick={handleFavorite}><img src={list} width="20px" /> Adicionar na lista</button>
+                                    <button>♥ Adicionar aos favoritos</button>
+                                </div>
+                                <Dialog
+                                    fullScreen={fullScreen}
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="responsive-dialog-title"
+                                >
+                                    <DialogTitle id="responsive-dialog-title">{"Gerar Token"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText>
+                                            cloneflix está pedindo sua permissão para ler e gravar dados em seu nome. Isso é necessário se você quiser salvar como favoritos, salvar filmes e series para assistir mais tarde. Caso aceite, você será redirecionado para o site TMDB.
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button autoFocus onClick={handleClose} color="secondary">
+                                            Não aceito
+                                        </Button>
+                                        <Button onClick={handlePermission} color="primary" autoFocus>
+                                            Aceito
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </div>
                         </div>
                     </div>
