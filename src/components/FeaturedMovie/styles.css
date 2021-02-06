@@ -1,0 +1,106 @@
+.featured {
+    height: 80vh;
+}
+.featured--vertical {
+    width: inherit;
+    height: inherit;
+    background: linear-gradient(to top, #111 10%, transparent 90%);
+}
+.featured--horizontal {
+    width: inherit;
+    height: inherit;
+    background: linear-gradient(to right, #111 30%, transparent 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 70px 0 150px 30px;
+}
+.featured--name {
+    font-size: 60px;
+    font-weight: bold;
+}
+.featured--info {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.featured--points, .featured--year, .featured--seasons {
+    display: inline-block;
+    margin-right: 15px;
+}
+.featured--points {
+    color: #46d369;
+}
+.featured--description {
+    margin-top: 15px;
+    font-size: 20px;
+    color: #999;
+    max-width: 40%;
+}
+.featured--buttons {
+    margin-top: 15px;
+}
+.featured--buttons button {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+    opacity: 1;
+    transition: all ease .2s;
+}
+.featured--buttons button:hover {
+    opacity: 0.7;
+}
+
+.featured--buttons button:first-child {
+    background-color: #fff;
+    color: #000;
+}
+
+.featured--buttons button:last-child {
+    background-color: #333;
+    color: #fff;
+}
+.featured--genres {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #999;
+}
+
+@media (max-width: 1368px) and (min-width: 768px) {
+    .featured--horizontal {
+        padding: 170px 0 150px 30px;
+    }
+}
+
+@media (max-width: 760px) and (min-height: 640px) {
+    .featured {
+        height: 80%;
+    }
+    .featured--horizontal {
+        background: linear-gradient(to right, #111 8%, transparent 73%);
+    }
+    .featured--name {
+        font-size: 32px;
+        margin-top: 100px;
+    }
+    .featured--description {
+        font-size: 15px;
+        max-width: 100%;
+        margin-right: 30px;
+    }
+    .featured--info {
+        font-size: 16px ;
+    }
+    .featured--genres {
+        margin-right: 30px;
+        font-size: 14px;
+    }
+    .featured--buttons button {
+        font-size: 19px;
+        padding: 12px 20px;
+    }
+}

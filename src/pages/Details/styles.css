@@ -1,0 +1,50 @@
+.banner--container {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.banner--details {
+    height: 60vh;
+}
+.banner--gradient {
+    width: inherit;
+    height: inherit;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+}
+.banner--contents {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.banner--content-image {
+    width: 20%;
+    margin-right: 2%;
+}
+.banner--content-texts {
+    width: 80%;
+    padding: 5% 5% 5% 2%;
+}
+.banner--content-texts div:first-of-type {
+    display: flex;
+    align-items: center;
+}
+.banner--content-texts h1 {
+    color: var(--color-primary-white);
+    font-weight: bold;
+    margin-bottom: -1.2%;
+    margin-right: 1%;
+}
+
+.banner--content-texts p {
+    color: var(--color-primary-gray);
+}
+.banner--content-texts p:hover {
+    transition: all ease .3s;
+    color: var(--color-primary-white);
+}
+
+@media screen and (max-width: 1400px) {
+    .banner--container {
+        padding: 30px;
+    }
+}
