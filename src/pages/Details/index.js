@@ -99,6 +99,11 @@ function Details() {
                                     <span>({firstDate})</span>
                                 </div>
                                 <p>{genres.join(', ')}</p>
+                                <div className="serie--overal">
+                                    <b>{item.vote_average} %</b>
+                                </div>
+                                <h3>Sinopse</h3>
+                                <p>{item.overview}</p>
                             </div>
                         </div>
                     </div>
