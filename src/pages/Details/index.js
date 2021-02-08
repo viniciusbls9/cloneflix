@@ -78,20 +78,20 @@ function Details() {
     };
 
     const handleLeftArrow = () => {
-        let x = scrollX + Math.round(window.innerWidth / 2);
-        if(x > 0) {
-            x = 0;
-        }
-        setScrollX(x);
+        // let x = scrollX + Math.round(window.innerWidth / 2);
+        // if(x > 0) {
+        //     x = 0;
+        // }
+        // setScrollX(x);
     }
 
     const handleRightArrow = () => {
-        let x = scrollX - Math.round(window.innerWidth / 2);
-        let listw = items.results.length * 150;
-        if((window.innerWidth - listw) > x) {
-            x = (window.innerWidth - listw) - 60;
-        }
-        setScrollX(x);
+        // let x = scrollX - Math.round(window.innerWidth / 2);
+        // let listw = items.results.length * 150;
+        // if((window.innerWidth - listw) > x) {
+        //     x = (window.innerWidth - listw) - 60;
+        // }
+        // setScrollX(x);
     }
 
     useEffect(() => {
@@ -101,9 +101,11 @@ function Details() {
             for (let i in info.genres) {
                 genres.push(info.genres[i].name);
             }
-
-            let date = new Date(info.first_air_date);
+            let date = new Date(type === 'tv' ? info.first_air_date : info.release_date);
             setFirstDate(date.getFullYear());
+
+            let credits = await Tmdb.credits(id);
+            // console.log(credits);
 
             console.log(Array(info));
             setGenres(genres);
@@ -132,7 +134,7 @@ function Details() {
 
                             <div className="banner--content-texts">
                                 <div>
-                                    <h1>{item.name}</h1>
+                                    <h1>{type === 'tv' ? item.name : item.title}</h1>
                                     <span>({firstDate})</span>
                                 </div>
                                 <span>{genres.join(', ')}</span>
@@ -186,13 +188,13 @@ function Details() {
                                         </div>
 
                                         <div className="movieRow--listarea">
-                                            <div className="movieRow--list" style={{ marginLeft: scrollX, width: items.results.length * 150 }}>
-                                                {/* {items.results.length > 0 && items.results.map((item, key) => (
+                                            {/* <div className="movieRow--list" style={{ marginLeft: scrollX, width: items.results.length * 150 }}>
+                                                {items.results.length > 0 && items.results.map((item, key) => (
                                                     <div className="movieRow--item" key={key}>
                                                         <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} alt={item.original_title} key={key} />
                                                     </div>
-                                                ))} */}
-                                            </div>
+                                                ))}
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
