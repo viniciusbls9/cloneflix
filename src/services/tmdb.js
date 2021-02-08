@@ -8,6 +8,29 @@ const basicFetch = async (endpoint) => {
 }
 
 export default {
+    credits: async (movieId) => {
+        const req = await fetch(`${API_BASE}/movie/${movieId}/credits?api_key=${API_KEY}`);
+        const json = await req.json();
+        return json;
+    },
+    markFavorite: async (accountId, type, mediaId) => {
+        const req = await fetch(`${API_BASE}/account/${accountId}/favorite?api_key=${API_KEY}`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    media_type: type,
+                    media_id: mediaId,
+                    favorite: true
+                }
+            )
+        });
+        const json = await req.json();
+        return json;
+    },
     sessionId: async (token) => {
         const req = await fetch(`${API_BASE}/authentication/session/new?api_key=${API_KEY}`, {
             method: 'POST',

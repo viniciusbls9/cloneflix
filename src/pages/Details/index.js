@@ -3,6 +3,8 @@ import Header from '../../components/Header';
 import Tmdb from '../../services/tmdb';
 import { useParams } from 'react-router-dom';
 import list from '../../assets/list-text.svg';
+import next from '../../assets/next.svg';
+import previous from '../../assets/left-arrow.svg';
 
 // MODAL
 import Button from '@material-ui/core/Button';
@@ -19,6 +21,7 @@ import './styles.css';
 function Details() {
     let { id, type } = useParams();
 
+    const [scrollX, setScrollX] = useState(0);
     const [detailsInfos, setDetailsInfos] = useState([]);
     const [genres, setGenres] = useState([]);
     const [firstDate, setFirstDate] = useState('');
@@ -30,8 +33,13 @@ function Details() {
         let token = await Tmdb.newToken();
         if (token.success) {
             // Salvando o token do usuário no Localstorage e redirecionando para o TMDB para permitir
-            window.location.href = `https://www.themoviedb.org/authenticate/${token.request_token}?redirect_to=http://localhost:3000/`;
+            window.location.href = `https://www.themoviedb.org/authenticate/${token.request_token}?redirect_to=http://localhost:3000/details/${type}/${id}`;
             localStorage.setItem('token', token.request_token);
+
+            // Pegando o Token do usuário para poder criar uma session ID após voltar para o site
+            // let getToken = localStorage.getItem('token');
+            // let session = await Tmdb.sessionId(getToken);
+            // localStorage.setItem('session', session.session_id);
 
         } else {
             alert('Opa, seu pedido deu falha ): Tente novamente');
@@ -46,8 +54,19 @@ function Details() {
             let session = await Tmdb.sessionId(token);
             localStorage.setItem('session', session.session_id);
 
-            // Fazer a ação de salvar o filme/serie
-            console.log('salvo');
+
+
+
+
+
+            //Fazer a ação de salvar o filme/serie
+            let favorite = localStorage.getItem('session');
+            if (favorite) {
+                let getFavorite = await Tmdb.markFavorite(type, id, true);
+                console.log(getFavorite);
+            } else {
+                console.log('n passou')
+            }
 
         } else {
             setOpen(true);
@@ -57,6 +76,23 @@ function Details() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleLeftArrow = () => {
+        let x = scrollX + Math.round(window.innerWidth / 2);
+        if(x > 0) {
+            x = 0;
+        }
+        setScrollX(x);
+    }
+
+    const handleRightArrow = () => {
+        let x = scrollX - Math.round(window.innerWidth / 2);
+        let listw = items.results.length * 150;
+        if((window.innerWidth - listw) > x) {
+            x = (window.innerWidth - listw) - 60;
+        }
+        setScrollX(x);
+    }
 
     useEffect(() => {
         const infos = async () => {
@@ -106,8 +142,10 @@ function Details() {
                                 <h3>Sinopse</h3>
                                 <p>{item.overview}</p>
                                 <div className="featured--buttons">
-                                    <button onClick={handleFavorite}><img src={list} width="20px" /> Adicionar na lista</button>
-                                    <button>♥ Adicionar aos favoritos</button>
+                                    <abbr title="Adicionar a listagem">
+                                        <button style={{ background: '#fff' }}> <img src={list} width="20px" /> </button>
+                                    </abbr>
+                                    <abbr title="Adicionar aos Favoritos"><button onClick={handleFavorite}>♥</button></abbr>
                                 </div>
                                 <Dialog
                                     fullScreen={fullScreen}
@@ -132,6 +170,36 @@ function Details() {
                                 </Dialog>
                             </div>
                         </div>
+
+                        <div className="column--wrapper">
+                            <div className="content--wrapper">
+                                <div className="content--center">
+                                    <div className="movieRow">
+                                        <h2>Elenco Principal</h2>
+
+                                        <div className="movieRow--left" onClick={handleLeftArrow}>
+                                            <img src={previous} alt="" width="30px" />
+                                        </div>
+
+                                        <div className="movieRow--right" onClick={handleRightArrow}>
+                                            <img src={next} alt="" width="30px" />
+                                        </div>
+
+                                        <div className="movieRow--listarea">
+                                            <div className="movieRow--list" style={{ marginLeft: scrollX, width: items.results.length * 150 }}>
+                                                {/* {items.results.length > 0 && items.results.map((item, key) => (
+                                                    <div className="movieRow--item" key={key}>
+                                                        <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} alt={item.original_title} key={key} />
+                                                    </div>
+                                                ))} */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="content--sidebar">dasd</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             ))}

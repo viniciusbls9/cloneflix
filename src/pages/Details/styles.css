@@ -67,12 +67,22 @@
     transition: all ease .3s;
     color: var(--color-primary-white);
 }
-
-
-
-
-
-
+.column--wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+.content--wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.content--center {
+    width: 70%;
+    background-color: lightcoral;
+}
 
 
 
