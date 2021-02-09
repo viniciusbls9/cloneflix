@@ -81,9 +81,13 @@
 }
 .content--center {
     width: 70%;
-    background-color: lightcoral;
 }
-
+.content--center .movieRow--item h3 {
+    color: var(--color-primary-white);
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 !important;
+}
 
 
 

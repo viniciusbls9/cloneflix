@@ -25,6 +25,7 @@ function Details() {
     const [detailsInfos, setDetailsInfos] = useState([]);
     const [genres, setGenres] = useState([]);
     const [firstDate, setFirstDate] = useState('');
+    const [credits, setCredits] = useState([]);
     const [open, setOpen] = useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -78,20 +79,20 @@ function Details() {
     };
 
     const handleLeftArrow = () => {
-        // let x = scrollX + Math.round(window.innerWidth / 2);
-        // if(x > 0) {
-        //     x = 0;
-        // }
-        // setScrollX(x);
+        let x = scrollX + Math.round(window.innerWidth / 2);
+        if(x > 0) {
+            x = 0;
+        }
+        setScrollX(x);
     }
 
     const handleRightArrow = () => {
-        // let x = scrollX - Math.round(window.innerWidth / 2);
-        // let listw = items.results.length * 150;
-        // if((window.innerWidth - listw) > x) {
-        //     x = (window.innerWidth - listw) - 60;
-        // }
-        // setScrollX(x);
+        let x = scrollX - Math.round(window.innerWidth / 2);
+        let listw = credits.length * 150;
+        if((window.innerWidth - listw) > x) {
+            x = (window.innerWidth - listw) - 60;
+        }
+        setScrollX(x);
     }
 
     useEffect(() => {
@@ -104,10 +105,10 @@ function Details() {
             let date = new Date(type === 'tv' ? info.first_air_date : info.release_date);
             setFirstDate(date.getFullYear());
 
-            let credits = await Tmdb.credits(id);
-            // console.log(credits);
-
-            console.log(Array(info));
+            let getCredits = await Tmdb.credits(type, id);
+            setCredits(getCredits.cast);
+            console.log(getCredits.cast);
+            // console.log(Array(info));
             setGenres(genres);
             setDetailsInfos(Array(info));
         }
@@ -179,22 +180,15 @@ function Details() {
                                     <div className="movieRow">
                                         <h2>Elenco Principal</h2>
 
-                                        <div className="movieRow--left" onClick={handleLeftArrow}>
-                                            <img src={previous} alt="" width="30px" />
-                                        </div>
-
-                                        <div className="movieRow--right" onClick={handleRightArrow}>
-                                            <img src={next} alt="" width="30px" />
-                                        </div>
-
                                         <div className="movieRow--listarea">
-                                            {/* <div className="movieRow--list" style={{ marginLeft: scrollX, width: items.results.length * 150 }}>
-                                                {items.results.length > 0 && items.results.map((item, key) => (
+                                            <div className="movieRow--list" style={{ marginLeft: scrollX, width: credits.length * 150, display: 'flex' }}>
+                                                {credits.length > 0 && credits.map((item, key) => (
                                                     <div className="movieRow--item" key={key}>
-                                                        <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} alt={item.original_title} key={key} />
+                                                        <img src={`https://image.tmdb.org/t/p/w300${item.profile_path}`} alt={item.original_title} key={key} />
+                                                        <h3>{item.character}</h3>
                                                     </div>
                                                 ))}
-                                            </div> */}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

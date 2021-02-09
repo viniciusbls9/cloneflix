@@ -53,7 +53,6 @@ function MovieList() {
         const loadAll = async () => {
             // pegando lista total de filmes
             let list = await Tmdb.getList('movie');
-            console.log(list.results);
             setMovieList(list.results);
 
             // Pegando valor total de páginas para incluir o valor no botão da páginação

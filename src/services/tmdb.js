@@ -8,8 +8,8 @@ const basicFetch = async (endpoint) => {
 }
 
 export default {
-    credits: async (movieId) => {
-        const req = await fetch(`${API_BASE}/movie/${movieId}/credits?api_key=${API_KEY}`);
+    credits: async (type, creditId) => {
+        const req = await fetch(`${API_BASE}/${type}/${creditId}/credits?api_key=${API_KEY}`);
         const json = await req.json();
         return json;
     },
