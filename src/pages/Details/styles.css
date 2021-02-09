@@ -88,8 +88,16 @@
     font-weight: bold;
     margin: 0 !important;
 }
-
-
+.movieRow--details {
+    margin-bottom: 30px;
+}
+.movieRow--details h2 {
+    color: var(--color-primary-light);
+    font-family: Roboto;
+}
+.movieRow--listarea-details {
+    overflow-x: hidden;
+}
 
 
 

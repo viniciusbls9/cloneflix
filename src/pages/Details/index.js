@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import Tmdb from '../../services/tmdb';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import list from '../../assets/list-text.svg';
 import next from '../../assets/next.svg';
 import previous from '../../assets/left-arrow.svg';
@@ -80,7 +81,7 @@ function Details() {
 
     const handleLeftArrow = () => {
         let x = scrollX + Math.round(window.innerWidth / 2);
-        if(x > 0) {
+        if (x > 0) {
             x = 0;
         }
         setScrollX(x);
@@ -89,7 +90,7 @@ function Details() {
     const handleRightArrow = () => {
         let x = scrollX - Math.round(window.innerWidth / 2);
         let listw = credits.length * 150;
-        if((window.innerWidth - listw) > x) {
+        if ((window.innerWidth - listw) > x) {
             x = (window.innerWidth - listw) - 60;
         }
         setScrollX(x);
@@ -180,11 +181,21 @@ function Details() {
                                     <div className="movieRow">
                                         <h2>Elenco Principal</h2>
 
+                                        {/* <div className="movieRow--left" onClick={handleLeftArrow}>
+                                            <img src={previous} alt="" width="30px" />
+                                        </div>
+
+                                        <div className="movieRow--right" onClick={handleRightArrow}>
+                                            <img src={next} alt="" width="30px" />
+                                        </div> */}
+
                                         <div className="movieRow--listarea">
                                             <div className="movieRow--list" style={{ marginLeft: scrollX, width: credits.length * 150, display: 'flex' }}>
                                                 {credits.length > 0 && credits.map((item, key) => (
                                                     <div className="movieRow--item" key={key}>
-                                                        <img src={`https://image.tmdb.org/t/p/w300${item.profile_path}`} alt={item.original_title} key={key} />
+                                                        <Link to="#">
+                                                            <img src={`https://image.tmdb.org/t/p/w300${item.profile_path}`} alt={item.original_title} key={key} />
+                                                        </Link>
                                                         <h3>{item.character}</h3>
                                                     </div>
                                                 ))}

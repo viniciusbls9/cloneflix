@@ -21,9 +21,9 @@
     opacity: 0;
     transition: all ease .4s;
 }
-.movieRow--left {
+/* .movieRow--left {
     left: 0;
-}
+} */
 .movieRow--right {
     right: 0;
 }
