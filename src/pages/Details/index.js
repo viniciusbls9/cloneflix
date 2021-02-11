@@ -53,12 +53,8 @@ function Details() {
         if (token) {
 
             // Salvando a sessão do usuário após aprovação do token
-            let session = await Tmdb.sessionId(token);
-            localStorage.setItem('session', session.session_id);
-
-
-
-
+            // let session = await Tmdb.sessionId(token);
+            // localStorage.setItem('session', session.session_id);
 
 
             //Fazer a ação de salvar o filme/serie
@@ -98,20 +94,32 @@ function Details() {
 
     useEffect(() => {
         const infos = async () => {
+            //Pega informaçaões da serie ou filme
             let info = await Tmdb.getMovieInfo(id, type);
+            // Pega os generos da serie ou do filme
             let genres = [];
             for (let i in info.genres) {
                 genres.push(info.genres[i].name);
             }
+            // Pega a data da serie ou do filme
             let date = new Date(type === 'tv' ? info.first_air_date : info.release_date);
             setFirstDate(date.getFullYear());
-
+            
+            // Pega os personagens
             let getCredits = await Tmdb.credits(type, id);
             setCredits(getCredits.cast);
-            console.log(getCredits.cast);
+
             // console.log(Array(info));
             setGenres(genres);
             setDetailsInfos(Array(info));
+
+            // Cria a sessionId
+            let token = localStorage.getItem('token');
+            if (token) {
+                // Salvando a sessão do usuário após aprovação do token
+                let session = await Tmdb.sessionId(token);
+                localStorage.setItem('session', session.session_id);
+            }
         }
         infos();
     }, []);
@@ -180,14 +188,6 @@ function Details() {
                                 <div className="content--center">
                                     <div className="movieRow">
                                         <h2>Elenco Principal</h2>
-
-                                        {/* <div className="movieRow--left" onClick={handleLeftArrow}>
-                                            <img src={previous} alt="" width="30px" />
-                                        </div>
-
-                                        <div className="movieRow--right" onClick={handleRightArrow}>
-                                            <img src={next} alt="" width="30px" />
-                                        </div> */}
 
                                         <div className="movieRow--listarea">
                                             <div className="movieRow--list" style={{ marginLeft: scrollX, width: credits.length * 150, display: 'flex' }}>
